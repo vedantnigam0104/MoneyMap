@@ -1,73 +1,178 @@
-# React + TypeScript + Vite
+# 💰 FinSight – Personal Finance Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📌 Overview
 
-Currently, two official plugins are available:
+**FinSight** is a modern personal finance dashboard built using **React + TypeScript**. It helps users track income and expenses, visualize spending patterns, and manage transactions efficiently.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+The application supports role-based access (Admin & Viewer), interactive charts, and a clean responsive UI optimized for all devices.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 Features
 
-## Expanding the ESLint configuration
+### 💼 Core Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+* Add, edit, and delete transactions
+* Track **Income vs Expenses**
+* Real-time balance calculation
+* Persistent data using **localStorage**
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 📊 Data Visualization
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+* Pie chart for category-wise expense distribution
+* Line chart for monthly trends
+* Download charts as image (PNG)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 🔍 Filtering & Sorting
+
+* Search transactions by category
+* Filter by:
+
+  * All
+  * Income
+  * Expense
+* Sort by:
+
+  * Latest / Oldest
+  * Amount (High → Low / Low → High)
+
+### 👤 Role-Based Access
+
+* **Admin**
+
+  * Can add, edit, delete transactions
+* **Viewer**
+
+  * Read-only access
+
+### 🎨 UI/UX Enhancements
+
+* Fully responsive (mobile, tablet, desktop)
+* Dark mode toggle 🌙
+* Category icons (🍔 🚗 🛍️ etc.)
+* Toast notifications for actions
+* Empty state handling
+
+---
+
+## 🛠️ Tech Stack
+
+* **Frontend:** React + TypeScript
+* **Charts:** Recharts
+* **Styling:** Tailwind CSS
+* **Notifications:** react-hot-toast
+* **Utilities:** html2canvas
+
+---
+
+## 📂 Project Structure
+
+```
+src/
+│── components/
+│── context/
+│   └── RoleContext.tsx
+│── App.tsx
+│── main.tsx
+│── index.css
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## ⚙️ Setup Instructions
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
+### 1️⃣ Clone the Repository
+
+```bash
+git clone <your-repo-url>
+cd finance-dashboard
+```
+
+### 2️⃣ Install Dependencies
+
+```bash
+npm install
+```
+
+### 3️⃣ Install Required Libraries
+
+```bash
+npm install recharts html2canvas react-hot-toast
+```
+
+### 4️⃣ Run the Project
+
+```bash
+npm run dev
+```
+
+---
+
+## 🧠 Approach & Design Decisions
+
+### 🔹 State Management
+
+* Used React hooks (`useState`, `useEffect`)
+* Local storage ensures persistence across reloads
+
+### 🔹 Data Handling
+
+* Transactions stored as an array of objects
+* Derived values:
+
+  * Total Income
+  * Total Expense
+  * Balance
+
+### 🔹 Charts
+
+* **Pie Chart:** Aggregates expense categories
+* **Line Chart:** Groups data by month
+
+### 🔹 Responsiveness
+
+* Tailwind responsive utilities:
+
+  * `grid-cols-1`, `sm`, `lg`
+  * Flexbox for adaptive layouts
+* Table becomes scrollable on small screens
+
+### 🔹 UX Enhancements
+
+* Toast feedback for user actions
+* Icons improve visual recognition
+* Empty state improves usability
+
+---
+
+## 📸 Screenshots (Optional)
+
+*Add screenshots here if needed*
+
+---
+
+## 🔮 Future Improvements
+
+* Backend integration (Spring Boot / Node.js)
+* Authentication (Login/Signup)
+* Budget tracking & alerts
+---
+
+## 🙌 Acknowledgements
+
+* Recharts for visualization
+* Tailwind CSS for styling
+* React ecosystem
+
+---
+
+## 📬 Contact
+
+For any queries or suggestions, feel free to reach out!
+
+---
+
+⭐ If you like this project, consider giving it a star!
+
 ])
 ```
