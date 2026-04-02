@@ -177,6 +177,30 @@ function App() {
         ).name
       : "N/A";
 
+  // 🔥 INSIGHTS
+  const totalDays = new Set(transactions.map(t => t.date)).size;
+  const avgDaily = totalDays ? (totalExpense / totalDays).toFixed(2) : 0;
+
+  const expenseRatio = totalIncome
+    ? ((totalExpense / totalIncome) * 100).toFixed(1)
+    : 0;
+
+  const currentMonth = new Date().toISOString().slice(0, 7);
+
+  const thisMonth = transactions
+    .filter(t => t.date.startsWith(currentMonth))
+    .reduce((a, t) => a + t.amount, 0);
+
+  const lastMonthDate = new Date();
+  lastMonthDate.setMonth(lastMonthDate.getMonth() - 1);
+  const lastMonthStr = lastMonthDate.toISOString().slice(0, 7);
+
+  const prevMonth = transactions
+    .filter(t => t.date.startsWith(lastMonthStr))
+    .reduce((a, t) => a + t.amount, 0);
+
+  const isOverspending = totalExpense > totalIncome;
+
   const downloadChart = async () => {
     if (!chartRef.current) return;
     const canvas = await html2canvas(chartRef.current);
@@ -252,9 +276,33 @@ function App() {
           📥 Download Charts
         </button>
 
-        {/* Insight */}
-        <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow mb-6 text-center sm:text-left">
-          🔥 Highest Spending: <b>{highestCategory}</b>
+        {/* INSIGHTS */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+          <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow">
+            🔥 Highest Spending <br />
+            <b>{highestCategory}</b>
+          </div>
+
+          <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow">
+            📅 Avg Daily Spend <br />
+            <b>₹ {avgDaily}</b>
+          </div>
+
+          <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow">
+            📊 Expense Ratio <br />
+            <b>{expenseRatio}%</b>
+          </div>
+
+          <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow">
+            📆 Monthly <br />
+            <b>₹ {thisMonth} vs ₹ {prevMonth}</b>
+          </div>
+
+          {isOverspending && (
+            <div className="bg-red-100 text-red-600 p-4 rounded-xl shadow col-span-1 sm:col-span-2 lg:col-span-3 text-center">
+              ⚠️ You are spending more than you earn!
+            </div>
+          )}
         </div>
 
         {/* Filters */}
@@ -298,7 +346,7 @@ function App() {
           </div>
         )}
 
-        {/* Empty State */}
+        {/* Table */}
         {sortedTransactions.length === 0 ? (
           <div className="text-center py-10 text-gray-500">
             😕 No transactions yet. Start adding some!
